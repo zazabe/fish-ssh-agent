@@ -3,7 +3,8 @@ function __ssh_agent_is_started -d "check if ssh agent is already started"
 		# This is an SSH session
 		ssh-add -l > /dev/null 2>&1
 		if test $status -eq 0 -o $status -eq 1
-			# An SSH agent was forwarded
+			# An SSH agent was forwarded - don't mark as started by us
+			set -e __fish_ssh_agent_started
 			return 0
 		end
 	end
