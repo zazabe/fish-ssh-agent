@@ -1,10 +1,15 @@
 function __ssh_agent_start -d "start a new ssh agent"
-  set -l agent_opts ""
   if test -n "$SSH_AGENT_OPTS"
-    set agent_opts $SSH_AGENT_OPTS
+    set -l opts
+    if test (count $SSH_AGENT_OPTS) -eq 1
+      set opts (string split " " -- $SSH_AGENT_OPTS)
+    else
+      set opts $SSH_AGENT_OPTS
+    end
+    ssh-agent -c $opts | sed 's/^echo/#echo/' > $SSH_ENV
+  else
+    ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV
   end
-
-  ssh-agent -c $agent_opts | sed 's/^echo/#echo/' > $SSH_ENV
   chmod 600 $SSH_ENV
   source $SSH_ENV > /dev/null
 

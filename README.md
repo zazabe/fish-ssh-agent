@@ -33,10 +33,10 @@ Copy `functions` and `conf.d` to your `$__fish_config_dir` directory. That's all
 You can pass additional parameters to `ssh-agent` by setting the `SSH_AGENT_OPTS` environment variable. For example, to set a custom timeout:
 
 ```fish
-set -gx SSH_AGENT_OPTS "-t 3600"
+set -gx SSH_AGENT_OPTS -t 3600
 ```
 
-This will be passed to `ssh-agent` when it starts. The plugin will automatically use these options when starting a new agent.
+**Note:** Set `SSH_AGENT_OPTS` as a list (without quotes around multiple arguments) for best results. The plugin will automatically use these options when starting a new agent.
 
 ### Automatic Cleanup
 
